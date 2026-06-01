@@ -2,9 +2,17 @@ class token:
 
     def __init__(self, value):
         self.value = value 
+        self.left=None
+        self.right=None
 
     def __str__(self):
         return self.value 
+
+    def setLeft(self,val):
+        self.left=val
+    
+    def setRight(self,val):
+        self.right=val
 
 class number(token):
 
