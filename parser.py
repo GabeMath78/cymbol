@@ -1,11 +1,5 @@
 from myTokens import *
 
-class node:
-    def __init__(self,value, right=None, left = None):
-        self. value = value
-        self.right = right 
-        self.left = left 
-
 
 
 class parser:
@@ -13,6 +7,7 @@ class parser:
         self.tokens=[]
         self.current=0
         self.__symbols={"+":plus,"-":minus,"/":slash,"*":star,"^":power,"(":lParen,")":rParen}
+        self.head=None
 
    
     def scanToken(self):
@@ -21,6 +16,34 @@ class parser:
             return self.tokens[self.current]
         except IndexError:
             return None
+
+
+    def parse(self,expr):
+        self.tokens=[]
+        self.current=0
+
+        self.tokenize(expr)
+
+        self.head = self.parseExpression()
+
+        self.printTree(self.head)
+
+    
+    def printTree(self, node, prefix="", isLeft=True, isRoot=True):
+        if node is None:
+            return None
+
+        if node.right is not None:
+            self.printTree(node.right,prefix+ ("|   " if isLeft else "   "),False,False)
+
+        if not isRoot:
+            print(prefix + ("└── " if isLeft else "┌── ") + str(node.value))
+        else:
+            print("    "+str(node.value))
+
+
+        if node.left is not None:
+            self.printTree(node.left, prefix + ("    " if isLeft else "|   "), True,False)
 
 
     def advance(self):
@@ -187,12 +210,14 @@ class parser:
 
 a = parser()
 
-a.tokenize("5 *2^3")
+# a.tokenize("5 *2^3")
+
+# # a.printTokens()
+
+# print(a.parseExpression())
 
 # a.printTokens()
 
-print(a.parseExpression())
-
-a.printTokens()
+a.parse("(5-1^7) + 2^(4+1)")
 
 
