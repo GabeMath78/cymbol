@@ -88,9 +88,15 @@ class parser:
                 self.tokens.append(number(current))
 
 
-
+            #if its a variable
             elif current.isalpha():
-                self.tokens.append(variable(current))
+                if isinstance(self.tokens[-1],number):
+                    c = self.tokens.pop()
+
+
+                self.tokens.append(variable(c.value+current,c.value))
+
+
 
             elif current in self.__symbols:
 
@@ -227,9 +233,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("4 - -4-3)")
+a.parse("4x - -4-3)")
 
-b = 4 --4-3
-print(b)
 
 

@@ -78,7 +78,7 @@ class power(token):
 
 class variable(token):
 
-    def __init__(self, value):
+    def __init__(self, value,c):
         super().__init__(value) 
-        self.c=1
-        self.power=1
+        self.c=c
+        
