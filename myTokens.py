@@ -19,6 +19,11 @@ class number(token):
     def __init__(self,value):
         super().__init__(value) 
 
+class float(token):
+
+    def __init__(self,value):
+        super().__init__(value)
+
 class plus(token):
 
     def __init__(self):

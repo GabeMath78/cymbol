@@ -38,19 +38,27 @@ class parser:
         current=""
         
         index=0
+
+        #loop through expression
         while index < len(expr):
 
             current= expr[index]
 
-            if current.isdigit():
-
+            #if current is number
+            if current.isdigit() or current ==".":
+                
+                #check if there are previous tokens
                 if len(self.tokens) >0:
+
+                    ##check if previous token is number
                     if  isinstance(self.tokens[-1], number):
                         prev = self.tokens[-1].value 
                         self.tokens.pop()
                         current = prev + current
                 
-                self.tokens.append(number(current))
+                self.tokens.append(float(token))
+
+              
 
 
 
@@ -142,7 +150,7 @@ class parser:
 
 a = parser()
 
-a.tokenize("3 * 2 + -1")
+a.tokenize("3.4 * 2 + 1")
 
 a.printTokens()
 
