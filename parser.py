@@ -112,7 +112,7 @@ class parser:
     # T = F {*|/ F}
     def parseTerm(self):
 
-        left = self.pasrseFactor()
+        left = self.parsePower()
 
         mid = self.scanToken()
 
@@ -122,7 +122,7 @@ class parser:
 
             #adcanve to point to termincal value hopfully
             self.advance()
-            right = self.pasrseFactor()
+            right = self.parsePower()
 
             mid.setRight(right)
             mid.setLeft(left)
@@ -133,11 +133,31 @@ class parser:
             mid = self.scanToken()
 
         return left
-                
+
+    
+    #handles ^
+    # P = F {^ F}
+    def parsePower(self):
+        
+        left = self.parseFactor()
+        
+        mid = self.scanToken()
+
+        while mid is not None and mid.value =="^":
+            self.advance()
+            right = self.parseFactor()
+
+            mid.setLeft(left)
+            mid.setRight(right)
+
+            left = mid 
+
+            mid = self.scanToken()
+        return left
         
         
     #handles numbers
-    def pasrseFactor(self):
+    def parseFactor(self):
         
         current = self.scanToken()
 
@@ -167,7 +187,7 @@ class parser:
 
 a = parser()
 
-a.tokenize("5 + 1- 2*(2 + 1) +5 *8")
+a.tokenize("5 *2^3")
 
 # a.printTokens()
 
