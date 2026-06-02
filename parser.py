@@ -26,7 +26,12 @@ class parser:
 
         self.head = self.parseExpression()
 
+        self.printTreeHelper()
+
+    def printTreeHelper(self):
+        print()
         self.printTree(self.head)
+        print()
 
     
     def printTree(self, node, prefix="", isLeft=True, isRoot=True):
@@ -88,6 +93,10 @@ class parser:
                 self.tokens.append(variable(current))
 
             elif current in self.__symbols:
+
+                if current == "-" and isinstance(self.tokens[-1],minus):
+                    self.tokens.pop()
+                    current="+"
                 self.tokens.append(self.__symbols[current]())
 
             
@@ -218,6 +227,9 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("(5-1^7) + 2^(4+1)")
+a.parse("4 - -4-3)")
+
+b = 4 --4-3
+print(b)
 
 
