@@ -17,7 +17,7 @@ class parser:
    
     def scanToken(self):
         try:
-            print(self.tokens[self.current])
+            # print(self.tokens[self.current])
             return self.tokens[self.current]
         except IndexError:
             return None
@@ -56,9 +56,8 @@ class parser:
                         self.tokens.pop()
                         current = prev + current
                 
-                self.tokens.append(float(token))
-
-              
+               
+                self.tokens.append(number(current))
 
 
 
@@ -97,7 +96,7 @@ class parser:
 
             left = mid
 
-            self.advance()
+            # self.advance()
             mid = self.scanToken()
 
 
@@ -130,7 +129,7 @@ class parser:
 
             left = mid
 
-            self.advance
+            # self.advance()
             mid = self.scanToken()
 
         return left
@@ -146,15 +145,33 @@ class parser:
             self.advance()
             return current
 
+        if isinstance(current,variable):
+            self.advance()
+            return current
+
+        elif isinstance(current,lParen):
+
+            self.advance()
+
+            a = self.parseExpression()
+            # self.current-=1
+
+            if not isinstance(self.scanToken(),rParen):
+                return None
+
+            else:
+                self.advance()
+                return a
+
                 
 
 a = parser()
 
-a.tokenize("3.4 * 2 + 1")
+a.tokenize("5 + 1- 2*(2 + 1) +5 *8")
 
-a.printTokens()
+# a.printTokens()
 
-a.parseExpression()
+print(a.parseExpression())
 
 a.printTokens()
 
