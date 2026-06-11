@@ -2,21 +2,28 @@ class token:
 
     def __init__(self, value):
         self.value = value 
-        self.left=None
-        self.right=None
+        
 
     def __str__(self):
         return self.value 
+
+   
+
+    def sum(self):
+        pass
+
+class symbol(token):
+
+    def __init__(self, value):
+        super().__init__(value)
+        self.left=None
+        self.right=None
 
     def setLeft(self,val):
         self.left=val
     
     def setRight(self,val):
         self.right=val
-
-    def eval(self):
-        pass
-
 
 class number(token):
 
@@ -25,26 +32,50 @@ class number(token):
 
 
 
-class plus(token):
+class plus(symbol):
 
     def __init__(self):
         super().__init__("+") 
 
-    def eval(self):
+    def sum(self):
         a = self.left
         b = self.right
 
+        if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+            return self
+            
+
+        if a is None:
+            a = number(0)
         
+        if b is None:
+            b = number(0)
+    
+        return number(float(a.value) + float(b.value))
 
-        return float(self.left) + float(self.right)
-
-class minus(token):
+class minus(symbol):
 
     def __init__(self):
         super().__init__("-") 
 
-    def eval(self):
-        return float(self.left) - float(self.right)
+    def sum(self):
+        a = self.left
+        b = self.right
+
+        if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+            return self
+            
+
+        if a is None:
+            a = number(0)
+        
+        if b is None:
+            b = number(0)
+    
+        return number(float(a.value) - float(b.value))
+
+
+
 
 class lParen(token):
 
@@ -56,29 +87,73 @@ class rParen(token):
     def __init__(self):
         super().__init__(")") 
 
-class star(token):
+
+
+class star(symbol):
 
     def __init__(self):
         super().__init__("*") 
 
-    def eval(self):
-        return float(self.left) * float(self.right)
+    def sum(self):
+        a = self.left
+        b = self.right
 
-class slash(token):
+        if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+            return self
+            
+
+        if a is None:
+            a = number(0)
+        
+        if b is None:
+            b = number(0)
+    
+        return number(float(a.value) * float(b.value))
+
+
+
+class slash(symbol):
 
     def __init__(self):
         super().__init__("/") 
 
-    def eval(self):
-        return float(self.left) / float(self.right)
+    def sum(self):
+        a = self.left
+        b = self.right
 
-class power(token):
+        if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+            return self
+            
+
+        if a is None:
+            a = number(0)
+        
+        if b is None:
+            print("zero division error")
+            return None
+    
+        return number(float(a.value) / float(b.value))
+
+class power(symbol):
 
     def __init__(self):
         super().__init__("^") 
 
-    def eval(self):
-        return float(self.left) ** float(self.right)
+    def sum(self):
+        a = self.left
+        b = self.right
+
+        if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+            return self
+            
+
+        if a is None:
+            a = number(0)
+        
+        if b is None:
+            b = number(0)
+    
+        return number(float(a.value) ** float(b.value))
 
 
 class variable(token):

@@ -28,6 +28,17 @@ class parser:
 
         self.printTreeHelper()
 
+    def sum(self):
+
+        if self.head is None:
+            print("no expression to sum")
+            
+        
+        else:
+            pass
+
+        
+
     def printTreeHelper(self):
         print()
         self.printTree(self.head)
@@ -38,7 +49,7 @@ class parser:
         if node is None:
             return None
 
-        if node.right is not None:
+        if isinstance(node,symbol) and node.right is not None:
             self.printTree(node.right,prefix+ ("|   " if isLeft else "   "),False,False)
 
         if not isRoot:
@@ -47,7 +58,7 @@ class parser:
             print("    "+str(node.value))
 
 
-        if node.left is not None:
+        if isinstance(node,symbol) and node.left is not None:
             self.printTree(node.left, prefix + ("    " if isLeft else "|   "), True,False)
 
 
@@ -233,7 +244,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("-4x + -4-3")
+a.parse("5+4*9")
 
 
 
