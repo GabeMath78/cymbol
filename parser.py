@@ -100,7 +100,7 @@ class parser:
 
             elif current in self.__symbols:
 
-                if current == "-" and isinstance(self.tokens[-1],minus):
+                if index !=0 and current == "-" and isinstance(self.tokens[-1],minus):
                     self.tokens.pop()
                     current="+"
                 self.tokens.append(self.__symbols[current]())
@@ -233,7 +233,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("4x - -4-3)")
+a.parse("-4x + -4-3")
 
 
 

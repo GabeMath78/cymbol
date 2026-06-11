@@ -31,6 +31,11 @@ class plus(token):
         super().__init__("+") 
 
     def eval(self):
+        a = self.left
+        b = self.right
+
+        
+
         return float(self.left) + float(self.right)
 
 class minus(token):
