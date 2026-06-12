@@ -109,6 +109,8 @@ class parser:
                         prev = self.tokens[-1].value 
                         self.tokens.pop()
                         current = prev + current
+
+                    
                 
                
                 self.tokens.append(number(current))
@@ -116,6 +118,7 @@ class parser:
 
             #if its a variable
             elif current.isalpha():
+                c=1
                 #if there is coefficient
                 if index != 0 and isinstance(self.tokens[-1],number):
                     c = self.tokens.pop()
@@ -130,6 +133,10 @@ class parser:
                 if index !=0 and current == "-" and isinstance(self.tokens[-1],minus):
                     self.tokens.pop()
                     current="+"
+
+                
+
+
                 self.tokens.append(self.__symbols[current]())
 
             
@@ -189,8 +196,11 @@ class parser:
             self.advance()
             right = self.parsePower()
 
+
             mid.setRight(right)
             mid.setLeft(left)
+
+            
 
             left = mid
 
@@ -212,10 +222,27 @@ class parser:
             self.advance()
             right = self.parseFactor()
 
-            mid.setLeft(left)
-            mid.setRight(right)
+            if isinstance(left,variable):
+                print("in 1")
 
-            left = mid 
+                if isinstance(right,number):
+
+                    
+                    left.p = right.value
+
+
+                else:
+                    print("in 2")
+                    left.p = right
+                    print(left)
+                    
+                    
+
+            else:
+                mid.setLeft(left)
+                mid.setRight(right)
+
+                left = mid 
 
             mid = self.scanToken()
         return left
@@ -248,6 +275,9 @@ class parser:
                 self.advance()
                 return a
 
+
+
+
                 
 
 a = parser()
@@ -260,7 +290,10 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("(5+1)+(2+35)+(205-3)+(205--3)")
+a.parse("4+5x^(5+2)")
+########3x*(5x+5^2)
+
+
 
 a.sum()
 
