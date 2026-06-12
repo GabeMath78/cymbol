@@ -45,7 +45,10 @@ class parser:
             node.left = self.sum_help(node.left)
 
             node.right = self.sum_help(node.right)
-        
+
+        elif isinstance(node,variable) and isinstance(node.p,symbol):
+            node.p = self.sum_help(node.p)       
+            
         
         return node.sum()
 
@@ -68,9 +71,9 @@ class parser:
             self.printTree(node.right,prefix+ ("|   " if isLeft else "   "),False,False)
 
         if not isRoot:
-            print(prefix + ("└── " if isLeft else "┌── ") + str(node.value))
+            print(prefix + ("└── " if isLeft else "┌── ") + str(node))
         else:
-            print("    "+str(node.value))
+            print("    ",node)
 
 
         if isinstance(node,symbol) and node.left is not None:

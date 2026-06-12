@@ -5,7 +5,7 @@ class token:
         
 
     def __str__(self):
-        return self.value 
+        return str(self.value )
 
    
 
@@ -27,9 +27,9 @@ class variable(token):
 
     def __str__(self):
         if self.p!=1:
-            return (self.value+"^"+str(self.p))
+            return str(self.value+"^"+str(self.p))
         else:
-            return self.value
+            return str(self.value)
     
 
 class symbol(token):
