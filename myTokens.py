@@ -158,7 +158,7 @@ class power(symbol):
 
 class variable(token):
 
-    def __init__(self, value,c):
+    def __init__(self, value,c =1):
         super().__init__(value) 
         self.c=c
         

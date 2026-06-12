@@ -28,14 +28,18 @@ class parser:
 
         self.printTreeHelper()
 
-    def sum(self):
+    # def sum(self,node=self.head):
 
-        if self.head is None:
-            print("no expression to sum")
+    #     if node is None:
+    #         return None
+
+
             
+    #     if isinstance(node,symbol):
+    #         left = self.sum(node.left)
+
+    #         right = self.sum(node.right)
         
-        else:
-            pass
 
         
 
@@ -101,11 +105,12 @@ class parser:
 
             #if its a variable
             elif current.isalpha():
-                if isinstance(self.tokens[-1],number):
+                #if there is coefficient
+                if index != 0 and isinstance(self.tokens[-1],number):
                     c = self.tokens.pop()
-
-
-                self.tokens.append(variable(c.value+current,c.value))
+                    self.tokens.append(variable(c.value+current,c.value))
+                else:
+                    self.tokens.append(variable(current))
 
 
 
@@ -244,7 +249,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("5+4*9")
+a.parse("(x+2)^2")
 
 
 
