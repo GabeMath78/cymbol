@@ -10,7 +10,7 @@ class token:
    
 
     def sum(self):
-        pass
+        return self
 
 class symbol(token):
 
@@ -29,6 +29,8 @@ class number(token):
 
     def __init__(self,value):
         super().__init__(value) 
+
+    
 
 
 

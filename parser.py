@@ -28,17 +28,28 @@ class parser:
 
         self.printTreeHelper()
 
-    # def sum(self,node=self.head):
 
-    #     if node is None:
-    #         return None
+    def sum(self):
+        self.head = self.sum_help(self.head)
+        self.printTreeHelper()
+
+
+    def sum_help(self,node):
+
+        if node is None:
+            return None
 
 
             
-    #     if isinstance(node,symbol):
-    #         left = self.sum(node.left)
+        if isinstance(node,symbol):
+            node.left = self.sum_help(node.left)
 
-    #         right = self.sum(node.right)
+            node.right = self.sum_help(node.right)
+        
+        
+        return node.sum()
+
+
         
 
         
@@ -249,7 +260,8 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("(x+2)^2")
+a.parse("(5+1)+(2+35)+(205-3)+(205--3)")
 
+a.sum()
 
 
