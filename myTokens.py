@@ -60,13 +60,15 @@ class plus(symbol):
             return self
             
 
-        if a is None:
-            a = number(0)
+        if a is None or a.value==0.0 :
+            if b is None:
+                return number(0.0)
+            return b
         
-        if b is None:
-            b = number(0)
+        if b is None or b.value==0.0:
+            return a
     
-        return number(float(a.value) + float(b.value))
+        return number(a.value + b.value)
 
     
 
@@ -83,13 +85,16 @@ class minus(symbol):
             return self
             
 
-        if a is None:
-            a = number(0)
+        if a is None or a == 0.0:
+            if b is None:
+                return number(0.0)
+            b.value=-b.value
+            return b
         
-        if b is None:
-            b = number(0)
+        if b is None or b ==0.0:
+            return a
     
-        return number(float(a.value) - float(b.value))
+        return number(a.value - b.value)
 
 
 
@@ -119,13 +124,16 @@ class star(symbol):
             return self
             
 
-        if a is None:
-            a = number(0)
+        if a is None or a ==0.0 or b is None or b ==0.0: 
+            return number(0.0)
         
-        if b is None:
-            b = number(0)
+        if a ==1.0 :
+            return b
+
+        if b ==1.0:
+            return a
     
-        return number(float(a.value) * float(b.value))
+        return number(a.value * b.value)
 
 
 
@@ -143,13 +151,16 @@ class slash(symbol):
             
 
         if a is None:
-            a = number(0)
+            a = number(0.0)
         
         if b is None:
             print("zero division error")
             return None
+
+        if b == 1.0:
+            return a
     
-        return number(float(a.value) / float(b.value))
+        return number(a.value / b.value)
 
 class power(symbol):
 
@@ -166,13 +177,17 @@ class power(symbol):
             return self
             
 
-        if a is None:
-            a = number(0)
+        if a is None or a ==0.0:
+            return number(0.0)
         
-        if b is None:
-            b = number(0)
+        if b is None or b == 0.0:
+            return number(1.0)
+
+        if b  == 1.0:
+            return a
+            
     
-        return number(float(a.value) ** float(b.value))
+        return number(a.value ** b.value)
 
 
 

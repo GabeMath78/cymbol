@@ -116,7 +116,7 @@ class parser:
                     
                 
                
-                self.tokens.append(number(current))
+                self.tokens.append(number(float(current)))
 
 
             #if its a variable
@@ -293,8 +293,8 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("4+5x^(5+2)")
-########3x*(5x+5^2)
+a.parse("3 * (5x+2)")
+########15x + 6
 
 
 
