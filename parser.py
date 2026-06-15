@@ -49,8 +49,9 @@ class parser:
         elif isinstance(node,variable) and isinstance(node.p,symbol):
             node.p = self.sum_help(node.p)       
             
-        
-        return node.sum()
+        item = node.sum()
+        self.printTreeHelper()
+        return item
 
 
         
@@ -107,13 +108,21 @@ class parser:
                 #check if there are previous tokens
                 if len(self.tokens) >0:
 
-                    ##check if previous token is number
+                    ##check if previous token 
                     if  isinstance(self.tokens[-1], number):
-                        prev = self.tokens[-1].value 
-                        self.tokens.pop()
-                        current = prev + current
+                        
+                        prev = self.tokens.pop()
+                        current = str(prev) + current
 
-                    
+                    #check if previous is negative
+                    elif isinstance(self.tokens[-1],minus):
+                        self.tokens.pop()
+                        current="-"+current
+
+                        #check if this was subtraction originally
+                        if  index !=1 and not isinstance(self.tokens[-1],symbol):
+                            self.tokens.append(plus())
+
                 
                
                 self.tokens.append(number(float(current)))
@@ -125,7 +134,7 @@ class parser:
                 #if there is coefficient
                 if index != 0 and isinstance(self.tokens[-1],number):
                     c = self.tokens.pop()
-                    self.tokens.append(variable(c.value+current,c.value))
+                    self.tokens.append(variable(str(c.value)+current,c.value))
                 else:
                     self.tokens.append(variable(current))
 
@@ -198,6 +207,8 @@ class parser:
             #adcanve to point to termincal value hopfully
             self.advance()
             right = self.parsePower()
+
+            #check
 
 
             mid.setRight(right)
@@ -293,7 +304,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("3 * (5x+2)")
+a.parse("-5x * -4")
 ########15x + 6
 
 
