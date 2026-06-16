@@ -134,7 +134,7 @@ class parser:
                 #if there is coefficient
                 if index != 0 and isinstance(self.tokens[-1],number):
                     c = self.tokens.pop()
-                    self.tokens.append(variable(str(c.value)+current,c.value))
+                    self.tokens.append(variable(current,c.value))
                 else:
                     self.tokens.append(variable(current))
 
@@ -304,7 +304,7 @@ a = parser()
 
 # a.printTokens()
 
-a.parse("-5x * -4")
+a.parse("2-3")
 ########15x + 6
 
 

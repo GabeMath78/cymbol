@@ -27,9 +27,9 @@ class variable(token):
 
     def __str__(self):
         if self.p!=1:
-            return str(self.value+"^"+str(self.p))
+            return str(str(self.c)+self.value+"^"+str(self.p))
         else:
-            return str(self.value)
+            return str(str(self.c)+self.value)
     
 
 class symbol(token):
@@ -45,6 +45,13 @@ class symbol(token):
     def setRight(self,val):
         self.right=val
 
+    def isBothSameVar(self,a,b):
+        if isinstance(a,variable) and isinstance(b,variable):
+                if a.value == b.value :
+                    return True
+        return False
+
+
 
 
 class plus(symbol):
@@ -57,6 +64,10 @@ class plus(symbol):
         b = self.right
 
         if (not isinstance(a,number) and a is not None) or (not isinstance(b,number) and b is not None):
+
+            if self.isBothSameVar(a,b) and a.p == b.p:
+                return variable(a.value,a.c+b.c,a.p)
+
             return self
             
 
